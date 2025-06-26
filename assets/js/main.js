@@ -1,6 +1,6 @@
-//variavéis e seleção de elementos
-const apiKey = "sDS7dnwszQ48qd_zG3QgIpe2CJukMwbmCRC4ZbbaHf0";
-const apiUnsplash = "https://source.unsplash.com/1600x900/?";
+const weatherApiKey = "03687a5f4df393d3aba4b0c110325338";
+const unsplashApiKey = "sDS7dnwszQ48qd_zG3QgIpe2CJukMwbmCRC4ZbbaHf0"; 
+const apiUnsplashSearch = "https://api.unsplash.com/search/photos";
 
 const cityInput = document.querySelector("#city-input");
 const searchBtn = document.querySelector("#search");
@@ -21,7 +21,6 @@ const loader = document.querySelector("#loader");
 const suggestionContainer = document.querySelector("#suggestions");
 const suggestionButtons = document.querySelectorAll("#suggestions button");
 
-// Loader
 const toggleLoader = () => {
   loader.classList.toggle("hide");
 };
@@ -29,7 +28,7 @@ const toggleLoader = () => {
 const getWeatherData = async (city) => {
   toggleLoader();
 
-  const apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}&lang=pt_br`;
+  const apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${weatherApiKey}&lang=pt_br`;
 
   const res = await fetch(apiWeatherURL);
   const data = await res.json();
@@ -39,7 +38,17 @@ const getWeatherData = async (city) => {
   return data;
 };
 
-// Tratamento de erro
+const getUnsplashImage = async (city) => {
+  const res = await fetch(`${apiUnsplashSearch}?query=${city}&client_id=${unsplashApiKey}`);
+  const data = await res.json();
+
+  if (data.results.length > 0) {
+    return data.results[0].urls.regular;
+  } else {
+    return "https://via.placeholder.com/1600x900?text=Imagem+não+disponível";
+  }
+};
+
 const showErrorMessage = () => {
   errorMessageContainer.classList.remove("hide");
 };
@@ -47,7 +56,6 @@ const showErrorMessage = () => {
 const hideInformation = () => {
   errorMessageContainer.classList.add("hide");
   weatherContainer.classList.add("hide");
-
   suggestionContainer.classList.add("hide");
 };
 
@@ -71,8 +79,8 @@ const showWeatherData = async (city) => {
   humidityElement.innerText = `${data.main.humidity}%`;
   windElement.innerText = `${data.wind.speed}km/h`;
 
-  // Change bg image
-  document.body.style.background = `url("${apiUnsplash + city}") no-repeat`;
+  const imageUrl = await getUnsplashImage(city);
+  document.body.style.background = `url("${imageUrl}") no-repeat`;
   document.body.style.backgroundSize = 'cover';
 
   weatherContainer.classList.remove("hide");
@@ -94,7 +102,6 @@ cityInput.addEventListener("keyup", (e) => {
   }
 });
 
-// Sugestões
 suggestionButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     const city = btn.getAttribute("id");
