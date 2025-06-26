@@ -7,10 +7,10 @@ This is a JavaScript weather application that uses the OpenWeather API to fetch 
 
 The application allows users to:
 
-    - Input a city name and get real-time weather data.
-    - View temperature, humidity, wind speed, and weather description.
-    - See a background image of the city based on the weather.
-    - Get suggestions for popular cities to view the weather.
+- Input a city name and get real-time weather data.
+- View temperature, humidity, wind speed, and weather description.
+- See a background image of the city based on the weather.
+- Get suggestions for popular cities to view the weather.
 
 ## Features
 
@@ -34,9 +34,9 @@ The application allows users to:
 
 **JavaScript**:
 
-    - Fetches weather data from the OpenWeather API.
-    - Displays the results dynamically based on user input or selected city.
-    - Updates the background using Unsplash API based on the city name.
+- Fetches weather data from the OpenWeather API.
+- Displays the results dynamically based on user input or selected city.
+- Updates the background using Unsplash API based on the city name.
 
 ## JavaScript Logic
 
