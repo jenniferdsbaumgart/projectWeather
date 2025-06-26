@@ -1,5 +1,5 @@
 //variavéis e seleção de elementos
-const apiKey = "03687a5f4df393d3aba4b0c110325338";
+const apiKey = "sDS7dnwszQ48qd_zG3QgIpe2CJukMwbmCRC4ZbbaHf0";
 const apiUnsplash = "https://source.unsplash.com/1600x900/?";
 
 const cityInput = document.querySelector("#city-input");
